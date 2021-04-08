@@ -602,7 +602,7 @@ TEST(temporal_fd_cache) {
 static int run_fuzz_test(FILE *f, int maxfds, int debuglog) {
   // There are a bunch of arbitrary constants in this test case. Changing them will
   // almost certainly change the effects of an input file. It *may* be worth
-  // making some of these constants to come from the input file. 
+  // making some of these constants to come from the input file.
   int setup = fgetc(f);
 
   int page_size = 128 << (setup & 3);
@@ -833,7 +833,7 @@ static int run_fuzz_test(FILE *f, int maxfds, int debuglog) {
   return TEST_RES_OK;
 }
 
-#define FMEMARGS(x)	x, sizeof(x) - 1
+#define FMEMARGS(x) x, sizeof(x) - 1
 
 TEST(fuzzer_found_1) {
   return run_fuzz_test(fmemopen(FMEMARGS("\021OlWkd5O4W4W0O5OlWkO5OlW0O5O4W0"), "r"), 4, 1);
@@ -952,7 +952,7 @@ TEST(small_free_space) {
       char fileDelName[64];
       sprintf(fileDelName, "%s%d%s", filename, fileDelNumber, fileext);
       //printf("Deleting %s (free space %d)\n", fileDelName, total - used);
-  
+
       res = SPIFFS_remove(FS, fileDelName);
 
       TEST_CHECK(res == SPIFFS_OK);
