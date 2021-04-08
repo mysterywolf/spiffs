@@ -73,7 +73,7 @@ s32_t spiffs_phys_wr(
     spiffs *fs,
     u32_t addr,
     u32_t len,
-    u8_t *src) {
+    const u8_t *src) {
   return SPIFFS_HAL_WRITE(fs, addr, len, src);
 }
 
@@ -467,7 +467,7 @@ s32_t spiffs_obj_lu_find_free(
       SPIFFS_OBJ_ID_FREE, block_ix, lu_entry);
   if (res == SPIFFS_OK) {
     fs->free_cursor_block_ix = *block_ix;
-    fs->free_cursor_obj_lu_entry = (*lu_entry) + 1;
+    fs->free_cursor_obj_lu_entry = *lu_entry;
     if (*lu_entry == 0) {
       fs->free_blocks--;
     }
@@ -754,7 +754,7 @@ s32_t spiffs_page_allocate_data(
     spiffs *fs,
     spiffs_obj_id obj_id,
     spiffs_page_header *ph,
-    u8_t *data,
+    const u8_t *data,
     u32_t len,
     u32_t page_offs,
     u8_t finalize,
@@ -1221,7 +1221,7 @@ s32_t spiffs_object_open_by_page(
 #if !SPIFFS_READ_ONLY
 // Append to object
 // keep current object index (header) page in fs->work buffer
-s32_t spiffs_object_append(spiffs_fd *fd, u32_t offset, u8_t *data, u32_t len) {
+s32_t spiffs_object_append(spiffs_fd *fd, u32_t offset, const u8_t *data, u32_t len) {
   spiffs *fs = fd->fs;
   s32_t res = SPIFFS_OK;
   u32_t written = 0;
@@ -1468,7 +1468,7 @@ s32_t spiffs_object_append(spiffs_fd *fd, u32_t offset, u8_t *data, u32_t len) {
 #if !SPIFFS_READ_ONLY
 // Modify object
 // keep current object index (header) page in fs->work buffer
-s32_t spiffs_object_modify(spiffs_fd *fd, u32_t offset, u8_t *data, u32_t len) {
+s32_t spiffs_object_modify(spiffs_fd *fd, u32_t offset, const u8_t *data, u32_t len) {
   spiffs *fs = fd->fs;
   s32_t res = SPIFFS_OK;
   u32_t written = 0;

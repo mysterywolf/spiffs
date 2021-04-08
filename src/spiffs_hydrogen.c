@@ -438,7 +438,7 @@ static s32_t spiffs_hydro_write(spiffs *fs, spiffs_fd *fd, const void *buf, u32_
   s32_t remaining = len;
   if (fd->size != SPIFFS_UNDEFINED_LEN && offset < fd->size) {
     s32_t m_len = MIN((s32_t)(fd->size - offset), len);
-    res = spiffs_object_modify(fd, offset, (u8_t *)buf, m_len);
+    res = spiffs_object_modify(fd, offset, buf, m_len);
     SPIFFS_CHECK_RES(res);
     remaining -= m_len;
     u8_t *buf_8 = (u8_t *)buf;
@@ -447,7 +447,7 @@ static s32_t spiffs_hydro_write(spiffs *fs, spiffs_fd *fd, const void *buf, u32_
     offset += m_len;
   }
   if (remaining > 0) {
-    res = spiffs_object_append(fd, offset, (u8_t *)buf, remaining);
+    res = spiffs_object_append(fd, offset, buf, remaining);
     SPIFFS_CHECK_RES(res);
   }
   return len;
